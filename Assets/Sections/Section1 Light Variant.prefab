@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Section1 Light Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7241813707942334871, guid: eacf2c3cc3a60454face34ce63b1775e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8151879498236118660, guid: eacf2c3cc3a60454face34ce63b1775e, type: 3}

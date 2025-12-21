@@ -20,13 +20,27 @@ public class ObstacleHit : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag("Obstacle")) {
-            health -= other.GetComponent<ObstacleDamage>().damage;
-            health = Mathf.Max(health, 0f);
+            PlayerShield shield = GetComponent<PlayerShield>();
+            if (shield.isShieldActive) {
+                shield.BreakShield();
+            } else {
+                health -= other.GetComponent<ObstacleDamage>().damage;
+                health = Mathf.Max(health, 0f);
 
-            if (health <= 0f + 0.001f) {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                if (health <= 0f + 0.001f) {
+                    const string key = "RecordScore";
+                    Player player = GetComponent<Player>();
+
+                    if (player.points > PlayerPrefs.GetFloat(key)) {
+                        PlayerPrefs.SetFloat(key, player.points);
+                        PlayerPrefs.Save();
+
+                        Debug.Log("New record value: " +  PlayerPrefs.GetFloat(key));
+                    }
+
+                    SceneManager.LoadScene(0);
+                }
             }
-
             Destroy(other.gameObject);
         }
     }
